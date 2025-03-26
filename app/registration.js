@@ -1,24 +1,10 @@
-'use client'
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+import Image from 'next/image';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 
-export default function Home() {
-  const [registration, setRegistration] = useState(false);
-  const [tournament, setTournament] = useState(false);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (registration) {
-      console.log("to register")
-      router.push("/register") // Navigiert zur neuen Seite
-    }else if (tournament) {
-      console.log("to tournament site")
-      router.push("/tournament")
-    }
-  }, [registration, tournament])
-
+export default function Registration() {
+    const [hideFirst, setHideFirst] = useState(false);
+    const [hideSecond, setHideSecond] = useState(false);
   return (
     <div className="relative h-screen w-screen">
       {/* Background Image */}
@@ -31,13 +17,13 @@ export default function Home() {
       />
       
       {/* First Button (slightly higher) */}
-      <div className="absolute top-1/2 left-1/8 transform flex items-center justify-center">
+      <div className="absolute top-7/12 left-8/12 transform -translate-x-1/2 flex items-center justify-center">
         <motion.button 
-            className="w-20 h-20 lg:w-40 lg:h-40 lg:pl-4"
+            className="w-40 h-40 ml-8"
             whileHover={{ scale: 1.2 }} 
             transition={{ duration: 0.5 }}
-            animate={registration ? { x: "100vw", opacity: 0 } : tournament ? {opacity:0} : {}}
-            onClick={() => setRegistration(true)} 
+            animate={hideFirst ? { x: "100vw", opacity: 0 } : hideFirst ? {opacity:0} : {}}
+            onClick={() => setHideFirst(true)} 
         >
           <Image 
             src="/image.png" 
@@ -48,20 +34,21 @@ export default function Home() {
           />
           {/* Text inside the Image Button */}
           <div className="absolute inset-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center text-black text-[12px] font-bold">
-            Register Team
+            Tournament
+            view
           </div>
         </motion.button>
       </div>
 
       {/* Second Button (top-left) */}
-      <div className="absolute top-7/12 left-8/12 flex items-center justify-center -translate-x-1/2">
+      <div className="absolute top-1/2 left-1/8 flex items-center justify-center">
         <motion.button 
-            className="w-40 h-40 pl-4"
+            className="w-20 h-20 lg:w-40 lg:h-40 lg:ml-8"
             whileHover={{ scale: 1.1 }} 
             transition={{ duration: 0.3 }} 
             whileTap={{scale:1.3}}
-            animate={tournament ? { x: "100vw", opacity: 0 } : registration ? {opacity:0} : {}}
-            onClick={() => setTournament(true)} 
+            animate={hideSecond ? { x: "100vw", opacity: 0 } : hideFirst ? {opacity:0} : {}}
+            onClick={() => setHideSecond(true)} 
         >
           <Image 
             src="/image.png" 
@@ -72,7 +59,8 @@ export default function Home() {
           />
           {/* Text inside the Image Button */}
           <div className="absolute inset-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center text-black text-xs font-bold">
-            Tournament View
+            Register
+            Team
           </div>
         </motion.button>
       </div>
