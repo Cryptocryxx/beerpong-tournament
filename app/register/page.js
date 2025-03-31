@@ -76,18 +76,18 @@ export default function RegisterPage() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="relative bg-black/80 p-6 rounded-2xl shadow-lg max-w-96 w-3/4"
       >
-        <h2 className="text-xl font-bold text-center mb-4">Register Your Team</h2>
+        <h2 className="text-xl font-bold text-center mb-4 text-white">Register Your Team</h2>
         <form onSubmit={handleSubmit} className="flex flex-col justify-center items-left space-y-4">
           <input 
             type="text" 
             placeholder="Team Name" 
-            className="p-2 border rounded-lg"
+            className="p-2 border rounded-lg border-white text-white"
             value={teamName}
             onChange={(e) => setTeamName(e.target.value)}
             required
           />
           <select 
-            className="p-2 border rounded-lg" 
+            className="p-2 border border-white rounded-lg text-white" 
             value={player1} 
             onChange={(e) => setPlayer1(e.target.value)}
             required
@@ -98,7 +98,7 @@ export default function RegisterPage() {
             ))}
           </select>
           <select 
-            className="p-2 border rounded-lg" 
+            className="p-2 border rounded-lg border-white text-white" 
             value={player2} 
             onChange={(e) => setPlayer2(e.target.value)}
           >
