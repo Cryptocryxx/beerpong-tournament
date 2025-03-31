@@ -36,7 +36,7 @@ export default function Home() {
   useEffect(() => {
     const fetchNames = async () => {
       try {
-        const response = await fetch("http://87.106.90.201/api/beerPong/possibleNames");
+        const response = await fetch("https://depthofheritage.online/api/beerPong/possibleNames");
         const data = await response.json();
         setNames(data); // Set the fetched names
       } catch (error) {
@@ -51,14 +51,14 @@ export default function Home() {
   const handleNameSelect = (event) => {
     setSelectedName(event.target.value);
     Cookies.set("name", event.target.value); // Save the selected name in a cookie
-    fetch(`http://87.106.90.201/api/beerPong/possibleName/${event.target.value}`, {
+    fetch(`https://depthofheritage.online/api/beerPong/possibleName/${event.target.value}`, {
       method: "DELETE"
     });
   };
 
   const handleLogOut = () => {
     Cookies.remove("name");
-    fetch(`http://87.106.90.201/api/beerPong/possibleName/${selectedName}`, {
+    fetch(`https://depthofheritage.online/api/beerPong/possibleName/${selectedName}`, {
       method: "PUT"
     });
     setSelectedName("");

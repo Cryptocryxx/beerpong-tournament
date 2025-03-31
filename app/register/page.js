@@ -16,7 +16,7 @@ export default function RegisterPage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("http://87.106.90.201/api/beerPong/possibleTeamMembers");
+        const response = await fetch("https://depthofheritage.online/api/beerPong/possibleTeamMembers");
         const possibleNames = await response.json();
         setPossibleNames(possibleNames);
         }catch (e) {
@@ -34,7 +34,7 @@ export default function RegisterPage() {
     const teamData = { teamName, player1, player2 };
 
     try {
-      const response = await fetch("http://87.106.90.201/api/beerPong/addTeam", {
+      const response = await fetch("https://depthofheritage.online/api/beerPong/addTeam", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(teamData),
@@ -44,10 +44,10 @@ export default function RegisterPage() {
       const data = await response.json();
       console.log("Success:", data);
 
-      const deletePlayer1 = await fetch(`http://87.106.90.201/api/beerPong/possibleTeamMember/${player1}`, {
+      const deletePlayer1 = await fetch(`https://depthofheritage.online/api/beerPong/possibleTeamMember/${player1}`, {
         method: "DELETE",
       });
-      const deletePlayer2 = await fetch(`http://87.106.90.201/api/beerPong/possibleTeamMember/${player2}`, {
+      const deletePlayer2 = await fetch(`https://depthofheritage.online/api/beerPong/possibleTeamMember/${player2}`, {
         method: "DELETE",
       });
       
