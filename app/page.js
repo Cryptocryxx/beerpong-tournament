@@ -25,10 +25,14 @@ export default function Home() {
 
   useEffect(() => {
     console.log(Cookies.get("teamName"));
-    console.log(Cookies.get("name"))
-    setSelectedName(Cookies.get("name"))
+    console.log(Cookies.get("name"));
     if (Cookies.get("teamName")) {
       cookieSetter(true);
+    }
+    if (!Cookies.get("name")){
+      cookieSetter(false)
+    }else {
+      setSelectedName(Cookies.get("name"))
     }
   }, [cookieSet]);
 
