@@ -31,6 +31,7 @@ export default function Home() {
     }
     if (!Cookies.get("name")){
       cookieSetter(false)
+      Cookies.remove("teamName")
     }else {
       setSelectedName(Cookies.get("name"))
     }
