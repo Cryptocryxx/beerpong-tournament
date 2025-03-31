@@ -1,6 +1,7 @@
 'use client'
 import Image from "next/image"
 import { useRouter } from "next/navigation";
+import Head from "next/head";
 export default function TournamentPage() {
     const router = useRouter();
 
@@ -9,6 +10,10 @@ export default function TournamentPage() {
     }
 
     return (
+        <>
+        <Head>
+            <title>Beerpong Tournament 2025</title>
+        </Head>
        <div className="relative h-screen w-screen flex justify-center items-center">
              {/* Background Image */}
              <Image 
@@ -25,5 +30,6 @@ export default function TournamentPage() {
                 &lt;
             </button>
         </div>
+        </>
     )
 }
