@@ -87,7 +87,7 @@ export default function RegisterPage() {
             required
           />
           <select 
-            className="p-2 border border-white rounded-lg text-white" 
+            className="p-2 border border-white bg-black/60 rounded-lg text-white" 
             value={player1} 
             onChange={(e) => setPlayer1(e.target.value)}
             required
@@ -98,7 +98,7 @@ export default function RegisterPage() {
             ))}
           </select>
           <select 
-            className="p-2 border rounded-lg border-white text-white" 
+            className="p-2 border rounded-lg bg-black/60 border-white text-white" 
             value={player2} 
             onChange={(e) => setPlayer2(e.target.value)}
           >
