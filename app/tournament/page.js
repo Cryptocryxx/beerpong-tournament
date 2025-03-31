@@ -23,7 +23,7 @@ export default function TournamentPage() {
                quality={100}
                style={{ objectFit: 'cover' }}
              />
-             <div className="z-1 bg-black/60 p-12 rounded-3xl text-2xl">
+             <div className="z-1 bg-black/60 p-12 rounded-3xl text-2xl text-white">
                 <h1>Just registration for now</h1>
              </div>
             <button className="z-4 absolute bg-white/60 text-black pl-3 pr-3 pt-1 pb-1 rounded-lg top-2 left-2" onClick={handleReturn}>
