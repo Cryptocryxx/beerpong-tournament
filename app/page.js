@@ -28,6 +28,8 @@ export default function Home() {
     console.log(Cookies.get("name"));
     if (Cookies.get("teamName")) {
       cookieSetter(true);
+    }else {
+      cookieSetter(false);
     }
     if (!Cookies.get("name")){
       cookieSetter(false)
@@ -59,8 +61,8 @@ export default function Home() {
       try {
         if (!selectedName) return;
         const response = await fetch(`https://depthofheritage.online/api/beerPong/getTeam/${selectedName}`);
-        const data = await response.json();
-        if (data) {
+        if (response.ok) {
+          const data = await response.json();
           Cookies.set("teamName", data.teamName, {expires: 365})
           cookieSetter(true)
         }
