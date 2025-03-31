@@ -50,7 +50,7 @@ export default function Home() {
   // Handle the name selection
   const handleNameSelect = (event) => {
     setSelectedName(event.target.value);
-    Cookies.set("name", event.target.value); // Save the selected name in a cookie
+    Cookies.set("name", event.target.value,  { expires: 365 }); // Save the selected name in a cookie
     fetch(`https://depthofheritage.online/api/beerPong/possibleName/${event.target.value}`, {
       method: "DELETE"
     });
