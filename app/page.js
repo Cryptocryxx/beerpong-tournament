@@ -30,7 +30,7 @@ export default function Home() {
     if (Cookies.get("teamName")) {
       cookieSetter(true);
     }
-  }, []);
+  }, [cookieSet]);
 
   // Fetch possible names when the component mounts
   useEffect(() => {
@@ -43,9 +43,31 @@ export default function Home() {
         console.error("Error fetching names:", error);
       }
     };
-
+  
     fetchNames();
+
+
   }, []);
+
+  useEffect(() => {
+    const fetchTeamName = async () => {
+      try {
+        if (!selectedName) return;
+        const response = await fetch(`https://depthofheritage.online/api/beerPong/getTeam/${selectedName}`);
+        const data = await response.json();
+        if (data) {
+          Cookies.set("teamName", data.teamName, {expires: 365})
+          cookieSetter(true)
+        }
+
+      }catch (e) {
+        console.log(e)
+      }
+    }
+
+
+    if (!cookieSet) fetchTeamName();
+  }, [selectedName])
 
   // Handle the name selection
   const handleNameSelect = (event) => {
