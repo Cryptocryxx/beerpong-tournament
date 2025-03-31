@@ -77,8 +77,8 @@ export default function Home() {
       
       {/* Name Selection Dropdown */}
       {!selectedName && (
-        <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 flex flex-col items-center justify-center bg-black opacity-70 p-4 rounded-2xl">
-          <h2 className="text-2xl text-white mb-4">Please select your name:</h2>
+        <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 w-3/4 flex flex-col items-center justify-center bg-black opacity-70 p-4 rounded-2xl">
+          <h2 className="text-xl text-white mb-4">Please select your name:</h2>
           <select 
             value={selectedName} 
             onChange={handleNameSelect}
@@ -109,7 +109,7 @@ export default function Home() {
             className={`rounded-full ${cookieSet ? "opacity-70" : "hover:opacity-80"} transition duration-300`}
           />
           {/* Text inside the Image Button */}
-          <div className="absolute inset-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center text-black sm:text-[14px] lg:text-[24px] font-bold">
+          <div className="absolute inset-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center text-black text-[12px] sm:text-[12px] lg:text-[20px] font-bold">
             Register Team
           </div>
         </motion.button>
@@ -125,7 +125,7 @@ export default function Home() {
     : <></>}
       { cookieSet ? 
       <div className="position: absolute top-2 right-3 bg-black opacity-60 p-4 rounded-2xl">
-        <h2 className="text-4xl">Your Team: {Cookies.get("teamName")}</h2>
+        <h2 className="text-2xl">Your Team: {Cookies.get("teamName")}</h2>
       </div>
       : <></>
       }
@@ -148,7 +148,7 @@ export default function Home() {
             className="rounded-full hover:opacity-80 transition duration-300"
           />
           {/* Text inside the Image Button */}
-          <div className="absolute inset-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center text-black text-[20px] font-bold">
+          <div className="absolute inset-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center text-black text-[14px] font-bold">
             Tournament View
           </div>
         </motion.button>

@@ -3,7 +3,7 @@ import "./globals.css";
 import localFont from "next/font/local";
 
 const myFont = localFont({
-  src: "../public/fonts/ROOSTER PERSONAL USE.ttf",
+  src: "../public/fonts/Comic Sans MS.ttf",
   display: "swap", // Verhindert das Blinken von Standard-Schriften
   variable: "--font-rooster",
 });
