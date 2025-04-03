@@ -67,7 +67,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="relative h-screen w-screen flex items-center justify-center">
+    <div className="relative min-h-[100dvh] w-screen flex items-center justify-center">
       <Image src="/bg.jpeg" alt="Background" layout="fill" quality={100} style={{ objectFit: 'cover' }} />
       
       <motion.div 

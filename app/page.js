@@ -96,15 +96,16 @@ export default function Home() {
   }
 
   return (
-    <div className="relative h-screen w-screen">
-      {/* Background Image */}
-      <Image 
-        src="/bg.jpeg" 
-        alt="Background" 
-        layout="fill"
-        quality={100}
-        style={{ objectFit: 'cover' }}
-      />
+    <div className="relative min-h-[100dvh] w-screen">
+      <div className="fixed inset-0 -z-10">
+        <Image 
+            src="/bg.jpeg" 
+            alt="Background" 
+            layout="fill"
+            quality={100}
+            className="object-cover"
+        />
+       </div>
       
       {/* Name Selection Dropdown */}
       {!selectedName && (
@@ -181,6 +182,29 @@ export default function Home() {
           {/* Text inside the Image Button */}
           <div className="absolute inset-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center text-black text-[14px] font-bold">
             Tournament View
+          </div>
+        </motion.button>
+      </div>
+      {/* third Button (rules) */}
+      <div className="absolute top-1/12 left-9/12 flex items-center justify-center -translate-x-1/2">
+        <motion.button 
+            className="w-20 h-20"
+            whileHover={{ scale: 1.1 }} 
+            transition={{ duration: 0.3 }} 
+            whileTap={{scale:1.3}}
+            animate={tournament ? { x: "100vw", opacity: 0 } : registration ? {opacity:0} : {}}
+            onClick={() => router.push("/rules")} 
+        >
+          <Image 
+            src="/image.png" 
+            alt="Button" 
+            width={128} 
+            height={128} 
+            className="rounded-full hover:opacity-80 transition duration-300"
+          />
+          {/* Text inside the Image Button */}
+          <div className="absolute inset-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center text-black text-[14px] font-bold">
+            Rules
           </div>
         </motion.button>
       </div>
