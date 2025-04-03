@@ -44,7 +44,7 @@ export default function Rules() {
 
                 <h2 className="text-2xl font-semibold mt-6 mb-4">4. Trinkregeln</h2>
 
-                <p>Das Team bei dem ein Becher getroffen wurde, muss diesen Becher leeren bevor geworfen werden darf.</p>
+                <p>Das Team bei dem ein Becher getroffen wurde, muss diesen Becher vollständig austrinken bevor geworfen werden darf.</p>
 
                 <p>Es gibt keine Trinkreihenfolge oder sonstiges, allerdings müssen die Becher von den Stammmitgliedern des Teams getrunken werden.</p>
 
