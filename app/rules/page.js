@@ -52,6 +52,8 @@ export default function Rules() {
 
                 <p>Der Inhalt der Becher muss alkoholisch sein mit über 3%, ist ansonsten aber frei wählbar.</p>
 
+                <p>Wenn mit Bier getrunken wird werden 2 Bier auf die 10 Becher verteilt. Bei jedem anderen Getränk muss die Spielleitung entscheiden.</p>
+
                 <h2 className="text-2xl font-semibold mt-6 mb-4">5. Gewinner</h2>
                 <p className="mb-3">Das Team, das als Erstes alle Becher des Gegners getroffen hat, gewinnt das Spiel.</p>
                 
