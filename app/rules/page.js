@@ -38,9 +38,9 @@ export default function Rules() {
 
                 <p className="mb-3"><strong>Elbow-Regel:</strong> Beim Werfen darf der Ellenbogen nicht über die Tischkante hinausragen. Falls dies passiert, kann das gegnerische Team den Wurf für ungültig erklären und wiederholen lassen. (Nach Ermessen der Spieler – die Regel sollte nicht zu streng ausgelegt werden.)</p>
 
-                <p className="mb-3"><strong>On Fire:</strong> Wenn ein Spieler in zwei aufeinanderfolgenden Runden einen Becher des Gegners trifft, muss der Spieler bei erstenmal &quotHeating Up&quot und beim erneuten treffen ,,On Fire" sagen. In der nächsten Runde darf der Spieler ein zusätzliches Wurfrecht nutzen, bis er nicht mehr trifft.</p>
+                <p className="mb-3"><strong>On Fire:</strong> Wenn ein Spieler in zwei aufeinanderfolgenden Runden einen Becher des Gegners trifft, muss der Spieler bei erstenmal &quot;Heating Up&quot; und beim erneuten treffen &quot;On Fire&quot; sagen. In der nächsten Runde darf der Spieler ein zusätzliches Wurfrecht nutzen, bis er nicht mehr trifft.</p>
 
-                <p><strong>Airball:</strong> Wenn der Spieler mit einem Wurf den Becher des Gegners komplett verfehlt und der Ball hinter den Tisch fliegt, nennt man dies einen „&quotAirball&quot. Falls ein Team drei Airballs wirft (also bei drei Würfen den Becher verfehlt und der Ball über den Tisch fliegt), muss das Team einen Becher entfernen.</p>
+                <p><strong>Airball:</strong> Wenn der Spieler mit einem Wurf den Becher des Gegners komplett verfehlt und der Ball hinter den Tisch fliegt, nennt man dies einen „&quot;Airball&quot;. Falls ein Team drei Airballs wirft (also bei drei Würfen den Becher verfehlt und der Ball über den Tisch fliegt), muss das Team einen Becher entfernen.</p>
 
                 <h2 className="text-2xl font-semibold mt-6 mb-4">4. Trinkregeln</h2>
 
