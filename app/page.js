@@ -59,7 +59,6 @@ export default function Home() {
   useEffect(() => {
     const fetchTeamName = async () => {
       try {
-        if (!selectedName) return;
         const response = await fetch(`https://depthofheritage.online/api/beerPong/getTeam/${selectedName}`);
         if (response.ok) {
           const data = await response.json();
@@ -72,8 +71,11 @@ export default function Home() {
       }
     }
 
-
-    if (!cookieSet) fetchTeamName();
+    if (!selectedName) {
+      cookieSetter(false);
+      Cookies.remove("teamName")
+    }
+    if (!cookieSet && selectedName) fetchTeamName();
   }, [selectedName])
 
   // Handle the name selection
