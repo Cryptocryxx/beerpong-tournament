@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
 export default function Home() {
-  const [registration, setRegistration] = useState(false);
+  const [games, setGames] = useState(false);
   const [tournament, setTournament] = useState(false);
   const router = useRouter();
   const [cookieSet, cookieSetter] = useState(false);
@@ -14,14 +14,14 @@ export default function Home() {
   const [selectedName, setSelectedName] = useState(""); // State for the selected name
 
   useEffect(() => {
-    if (registration) {
-      console.log("to register")
-      router.push("/register"); // Navigate to the register page
+    if (games) {
+      console.log("to games")
+      router.push("/games"); // Navigate to the register page
     } else if (tournament) {
       console.log("to tournament site")
       router.push("/tournament"); // Navigate to the tournament page
     }
-  }, [registration, tournament]);
+  }, [games, tournament]);
 
   useEffect(() => {
     console.log(Cookies.get("teamName"));
@@ -128,21 +128,21 @@ export default function Home() {
       <div className="absolute top-1/2 left-1/8 transform flex items-center justify-center">
         <motion.button 
             className="w-20 h-20 lg:w-40 lg:h-40 lg:pl-4"
-            whileHover={!cookieSet ? { scale: 1.2 } : {}} 
+            whileHover={{ scale: 1.2 }} 
             transition={{ duration: 0.5 }}
-            animate={registration ? { x: "100vw", opacity: 0 } : tournament ? {opacity:0} : cookieSet ? {opacity:30} : {}}
-            onClick={!cookieSet ? () => setRegistration(true) : () => setRegistration(false)} 
+            animate={tournament ? {opacity:0} : {}}
+            onClick={!cookieSet ? () => setGames(true) : () => setGames(true)} 
         >
           <Image 
             src="/image.png" 
             alt="Button" 
             width={128} 
             height={128} 
-            className={`rounded-full ${cookieSet ? "opacity-70" : "hover:opacity-80"} transition duration-300`}
+            className={`rounded-full ${false ? "opacity-100" : "hover:opacity-80"} transition duration-300`}
           />
           {/* Text inside the Image Button */}
           <div className="absolute inset-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center text-black text-[12px] sm:text-[12px] lg:text-[20px] font-bold">
-            Register Team
+            Games
           </div>
         </motion.button>
       </div>
@@ -169,7 +169,7 @@ export default function Home() {
             whileHover={{ scale: 1.1 }} 
             transition={{ duration: 0.3 }} 
             whileTap={{scale:1.3}}
-            animate={tournament ? { x: "100vw", opacity: 0 } : registration ? {opacity:0} : {}}
+            animate={tournament ? { x: "100vw", opacity: 0 } : {}}
             onClick={() => setTournament(true)} 
         >
           <Image 
@@ -192,7 +192,7 @@ export default function Home() {
             whileHover={{ scale: 1.1 }} 
             transition={{ duration: 0.3 }} 
             whileTap={{scale:1.3}}
-            animate={tournament ? { x: "100vw", opacity: 0 } : registration ? {opacity:0} : {}}
+            animate={tournament ? { x: "100vw", opacity: 0 } : {}}
             onClick={() => router.push("/rules")} 
         >
           <Image 

@@ -40,8 +40,6 @@ export default function Rules() {
 
                 <p className="mb-3"><strong>On Fire:</strong> Wenn ein Spieler in zwei aufeinanderfolgenden Runden einen Becher des Gegners trifft, muss der Spieler bei erstenmal &quot;Heating Up&quot; und beim erneuten treffen &quot;On Fire&quot; sagen. In der nächsten Runde darf der Spieler ein zusätzliches Wurfrecht nutzen, bis er nicht mehr trifft.</p>
 
-                <p><strong>Airball:</strong> Wenn der Spieler mit einem Wurf den Becher des Gegners komplett verfehlt und der Ball hinter den Tisch fliegt, nennt man dies einen „&quot;Airball&quot;. Falls ein Team drei Airballs wirft (also bei drei Würfen den Becher verfehlt und der Ball über den Tisch fliegt), muss das Team einen Becher entfernen.</p>
-
                 <h2 className="text-2xl font-semibold mt-6 mb-4">4. Trinkregeln</h2>
 
                 <p>Das Team bei dem ein Becher getroffen wurde, muss diesen Becher vollständig austrinken bevor geworfen werden darf.</p>
