@@ -10,20 +10,51 @@ export default function TournamentPage() {
     const [selectedTeam, setSelectedTeam] = useState(null);
 const [players, setPlayers] = useState([]);
 const [showPlayers, setShowPlayers] = useState(false);
-
     const router = useRouter();
+    const [semifinals, setSemifinals] = useState([]);
+const [final, setFinal] = useState(null);
 
     const handleReturn = () => {
         router.push("/")
     }
 
     useEffect(() => {
-        getGroupPhaseGroups()
-    }, [])
+        // Funktion die alles aktualisiert
+        const fetchAll = () => {
+            getGroupPhaseGroups();
+            fetchSemifinals();
+            fetchFinals();
+        };
+    
+        // Direkt beim Laden initial fetchen
+        fetchAll();
+    
+        // Intervall starten
+        const intervalId = setInterval(fetchAll, 1000); // jede Sekunde
+    
+        // Cleanup
+        return () => clearInterval(intervalId);
+    }, []);
 
-    useEffect(() => {
-        console.log(players)
-    }, [players])
+    async function fetchSemifinals() {
+        try {
+            const response = await fetch("https://depthofheritage.online/api/beerPong/semifinals");
+            const data = await response.json();
+            setSemifinals(data);
+        } catch (error) {
+            console.error("Fehler beim Laden der Halbfinalspiele:", error);
+        }
+    }
+    
+    async function fetchFinals() {
+        try {
+            const response = await fetch("https://depthofheritage.online/api/beerPong/finals");
+            const data = await response.json();
+            setFinal(data);
+        } catch (error) {
+            console.error("Fehler beim Laden des Finalspiels:", error);
+        }
+    }
 
     async function fetchPlayers(teamName) {
         try {
@@ -87,6 +118,7 @@ const [showPlayers, setShowPlayers] = useState(false);
                 }
             }
             setGroups(groups);
+            console.log(groups)
         }catch (e) {
             console.log("An error occured: ", e)
         }
@@ -171,89 +203,60 @@ const [showPlayers, setShowPlayers] = useState(false);
 
     const KOPhase = () => {
         return (
-          <div className="flex flex-row justify-around bg-linear-to-t from-black/30 to-black/0 items-center h-[50vh] w-[100vw] relative">
-            {/* Halbfinale */}
-            <div className="flex flex-col justify-around items-center h-3/4 w-1/4">
-              <h1 className="h-1/12 flex items-center justify-center bg-black/60 rounded-xl text-white w-full gap-4">Halb Finale</h1>
-              <div className="flex flex-col justify-center items-center h-1/2 w-full gap-4">
-                <div id="semi1" className="flex p-2 text-xs lg:text-xl text-white justify-center items-center h-2/6 bg-linear-to-r from-blue-200 via-blue-400 to-blue-600 rounded-xl w-full">
-                  Gewinner Gruppe 1
+            <div className="flex flex-row justify-around bg-linear-to-t from-black/30 to-black/0 items-center h-[50vh] w-[100vw] relative">
+                {/* Halbfinale */}
+                <div className="flex flex-col justify-around items-center h-3/4 w-1/4">
+                    <h1 className="h-1/12 flex items-center justify-center bg-black/60 rounded-xl text-white w-full gap-4">Halb Finale</h1>
+                    <div className="flex flex-col justify-center items-center h-1/2 w-full gap-4">
+                        <div id="semi1" className="flex p-2 text-xs lg:text-xl text-white justify-center items-center h-2/6 bg-linear-to-r from-blue-200 via-blue-400 to-blue-600 rounded-xl w-full">
+                            {semifinals[0]?.team1 || "TBD"}
+                        </div>
+                        <div id="semi2" className="flex p-2 text-xs lg:text-xl text-white justify-center items-center h-2/6 bg-linear-to-r from-blue-200 via-blue-400 to-blue-600 rounded-xl w-full">
+                            {semifinals[0]?.team2 || "TBD"}
+                        </div>
+                    </div>
+                    <div className="flex flex-col justify-center items-center h-1/2 w-full gap-4">
+                        <div id="semi3" className="flex p-2 text-xs lg:text-xl text-white justify-center items-center h-2/6 bg-linear-to-r from-blue-200 via-blue-400 to-blue-600 rounded-xl w-full">
+                            {semifinals[1]?.team1 || "TBD"}
+                        </div>
+                        <div id="semi4" className="flex p-2 text-xs lg:text-xl text-white justify-center items-center h-2/6 bg-linear-to-r from-blue-200 via-blue-400 to-blue-600 rounded-xl w-full">
+                            {semifinals[1]?.team2 || "TBD"}
+                        </div>
+                    </div>
                 </div>
-                <div id="semi2" className="flex p-2 text-xs lg:text-xl text-white justify-center items-center h-2/6 bg-linear-to-r from-blue-200 via-blue-400 to-blue-600 rounded-xl w-full">
-                  2.er Gruppe 2
+    
+                {/* Finale */}
+                <div className="flex flex-col justify-around items-center h-3/4 w-1/4">
+                    <h1 className="h-1/12 flex items-center justify-center bg-black/60 rounded-xl text-white w-full gap-4">Finale</h1>
+                    <div className="flex flex-col justify-around items-center h-11/12 w-full">
+                        <div id="final1" className="flex p-2 text-xs lg:text-xl text-white justify-center items-center h-1/6 w-full bg-linear-to-r from-blue-500 via-teal-500 to-emerald-300 rounded-xl">
+                            {final?.team1 || "TBD"}
+                        </div>
+                        <div id="final2" className="flex p-2 text-xs lg:text-xl text-white justify-center items-center h-1/6 w-full bg-linear-to-r from-blue-500 via-teal-500 to-emerald-300 rounded-xl">
+                            {final?.team2 || "TBD"}
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div className="flex flex-col justify-center items-center h-1/2  w-full gap-4">
-                <div id="semi3" className="flex p-2 text-xs lg:text-xl text-white justify-center items-center h-2/6 bg-linear-to-r from-blue-200 via-blue-400 to-blue-600 rounded-xl w-full">
-                  Gewinner Gruppe 2
+    
+                {/* Gewinner */}
+                <div className="flex flex-col justify-center h-3/4 w-1/4">
+                    <h1 className="h-1/12 flex items-center justify-center bg-black/60 rounded-xl text-white w-full gap-4">Gewinner</h1>
+                    <div className="flex flex-col justify-around items-center h-11/12 w-full">
+                        <div id="winner" className="flex p-2 text-xs lg:text-xl text-white justify-center items-center h-1/6 w-full bg-linear-to-r from-emerald-200 via-lime-400 to-green-600 rounded-xl">
+                            TBD
+                        </div>
+                    </div>
                 </div>
-                <div id="semi4" className="flex p-2 text-xs lg:text-xl text-white justify-center items-center h-2/6 bg-linear-to-r from-blue-200 via-blue-400 to-blue-600 rounded-xl w-full">
-                  2.er Gruppe 1
-                </div>
-              </div>
-            </div>
-      
-            {/* Finale */}
-            <div className="flex flex-col justify-around items-center h-3/4 w-1/4">
-              <h1 className="h-1/12 flex items-center justify-center bg-black/60 rounded-xl text-white w-full gap-4">Finale</h1>
-              <div className="flex flex-col justify-around items-center h-11/12 w-full">
-                <div id="final1" className="flex p-2 text-xs lg:text-xl text-white justify-center items-center h-1/6 w-full bg-linear-to-r from-blue-500 via-teal-500 to-emerald-300 rounded-xl">
-                  Tbd
-                </div>
-                <div id="final2" className="flex p-2 text-xs lg:text-xl text-white justify-center items-center h-1/6 w-full bg-linear-to-r from-blue-500 via-teal-500 to-emerald-300 rounded-xl">
-                  Tbd
-                </div>
-              </div>
-            </div>
-      
-            {/* Gewinner */}
-            <div className="flex flex-col justify-center h-3/4 w-1/4">
-              <h1 className="h-1/12 flex items-center justify-center bg-black/60 rounded-xl text-white w-full gap-4">Gewinner</h1>
-              <div className="flex flex-col justify-around items-center h-11/12 w-full">
-                <div id="winner" className="flex p-2 text-xs lg:text-xl text-white justify-center items-center h-1/6 w-full bg-linear-to-r from-emerald-200 via-lime-400 to-green-600 rounded-xl">
-                  Tbd
-                </div>
-              </div>
-            </div>
-      
-            {/* Pfeile mit Xarrow */}
-                  {/* Pfeile mit Xarrow */}
-                <Xarrow
-                    start="semi1"
-                    end="final1"
-                    strokeWidth={2}
-                    color="black"
-                />
-                <Xarrow
-                    start="semi2"
-                    end="final1"
-                    strokeWidth={2}
-                    color="black"
-                />
-                <Xarrow
-                    start="semi3"
-                    end="final2"
-                    strokeWidth={2}
-                    color="black"
-                />
-                <Xarrow
-                    start="semi4"
-                    end="final2"
-                    strokeWidth={2}
-                    color="black"
-                />
-                <Xarrow
-                    start="final1"
-                    end="winner"
-                    strokeWidth={2}
-                    color="black"
-                />
-                <Xarrow
-                    start="final2"
-                    end="winner"
-                    strokeWidth={2}
-                    color="black"
-                />
+    
+                {/* Pfeile */}
+                <Xarrow start="semi1" end="final1" strokeWidth={2} color="black" />
+                <Xarrow start="semi2" end="final1" strokeWidth={2} color="black" />
+                <Xarrow start="semi3" end="final2" strokeWidth={2} color="black" />
+                <Xarrow start="semi4" end="final2" strokeWidth={2} color="black" />
+                <Xarrow start="final1" end="winner" strokeWidth={2} color="black" />
+                <Xarrow start="final2" end="winner" strokeWidth={2} color="black" />
+    
+                {/* Spieler Modal */}
                 {showPlayers && (
                     <div className="absolute top-20 left-1/2 transform -translate-x-1/2 bg-white/90 text-black rounded-lg shadow-lg p-4 z-50 max-w-sm w-[80%]">
                         <div className="flex justify-between items-center mb-2">
@@ -271,9 +274,10 @@ const [showPlayers, setShowPlayers] = useState(false);
                         )}
                     </div>
                 )}
-          </div>
+            </div>
         );
-      };
+    };
+    
     
 
     return (
@@ -281,7 +285,7 @@ const [showPlayers, setShowPlayers] = useState(false);
         <Head>
             <title>Beerpong Tournament 2025</title>
         </Head>
-       <div className="relative min-h-[100dvh] w-screen flex justify-center items-center">
+       <div className="relative min-h-[100dvh] overflow-hidden w-screen flex justify-center items-center">
              {/* Background Image */}
              <Image 
                src="/bg.jpeg" 

@@ -13,20 +13,22 @@ export default function Games() {
     const [becher, setBecher] = useState(1);
     const [gespielteSpiele, setGespielteSpiele] = useState([]);
     const [naechstesSpiel, setNaechstesSpiel] = useState(null);
+    const [groupPhaseOver, setGroupPhaseOver] = useState(false)
 
     useEffect(() => {
-        const teamName = Cookies.get("teamName");
-
-        if (!teamName) {
-            setShowLoginWarning(true);
-            return;
-        }
-
-        // Fetch past games
-        fetch(`https://depthofheritage.online/api/beerPong/pastGames/${teamName}`)
-            .then(res => res.json())
-            .then(data => {
-                const mappedGames = data.map((game, index) => ({
+        const fetchData = async () => {
+            const teamName = Cookies.get("teamName");
+    
+            if (!teamName) {
+                setShowLoginWarning(true);
+                return;
+            }
+    
+            try {
+                // Vergangene Spiele laden
+                const pastGamesRes = await fetch(`https://depthofheritage.online/api/beerPong/pastGames/${teamName}`);
+                const pastGamesData = await pastGamesRes.json();
+                const mappedGames = pastGamesData.map((game, index) => ({
                     datum: `Spiel ${index + 1}`,
                     spiel: `Spiel ${index + 1}`,
                     ergebnis: game.win ? "Gewonnen" : "Verloren",
@@ -34,23 +36,31 @@ export default function Games() {
                     becher: game.remainingCups
                 }));
                 setGespielteSpiele(mappedGames);
-            })
-            .catch(err => console.error("Fehler beim Laden der vergangenen Spiele:", err));
-
-        // Fetch next opponent
-        fetch(`https://depthofheritage.online/api/beerPong/nextopponent/${teamName}`)
-            .then(res => res.json())
-            .then(data => {
+            } catch (err) {
+                console.error("Fehler beim Laden der vergangenen Spiele:", err);
+            }
+    
+            try {
+                // Nächstes Spiel laden
+                const nextOpponentRes = await fetch(`https://depthofheritage.online/api/beerPong/nextopponent/${teamName}`);
+                if (nextOpponentRes.status == 204) {setGroupPhaseOver(true); setNaechstesSpiel(""); return;}
+                let nextOpponentData = await nextOpponentRes.json();
+                if (nextOpponentData == "Something went wrong!") nextOpponentData = "tbd";
                 setNaechstesSpiel({
-                    tisch: 5, // Kannst du evtl. später auch dynamisch machen
-                    gegen: data,
-                    vorEinem: 2 // Auch das ggf. später aus API
+                    tisch: 5, // TODO: evtl. dynamisch
+                    gegen: nextOpponentData,
+                    vorEinem: 2 // TODO: evtl. aus API holen
                 });
-            })
-            .catch(err => console.error("Fehler beim Laden des nächsten Spiels:", err));
+            } catch (err) {
+                console.error("Fehler beim Laden des nächsten Spiels:", err);
+            }
+        };
+    
+        fetchData();
     }, [showModal]);
+    
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const teamName = Cookies.get("teamName");
     
         if (!teamName || !naechstesSpiel) {
@@ -66,28 +76,28 @@ export default function Games() {
             groupPhase: true
         };
     
-        fetch("https://depthofheritage.online/api/beerPong/result", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-        })
-        .then(response => {
+        try {
+            const response = await fetch("https://depthofheritage.online/api/beerPong/result", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            });
+    
             if (!response.ok) {
                 throw new Error("Fehler beim Senden des Spielergebnisses");
             }
-            return response.json();
-        })
-        .then(data => {
+    
+            const data = await response.json();
             console.log("Ergebnis gespeichert:", data);
             setShowModal(false);
-            // Optional: Daten neu laden (z.B. vergangene Spiele neu fetchen)
-        })
-        .catch(error => {
+            // Optional: Spiele neu laden
+        } catch (error) {
             console.error("Fehler beim Speichern des Ergebnisses:", error);
-        });
+        }
     };
+    
 
     const handleReturnHome = () => {
         router.push("/")
@@ -115,21 +125,26 @@ export default function Games() {
             </div>
 
             {/* Nächstes Spiel */}
-            {naechstesSpiel && (
+            {naechstesSpiel ? (
                 <div className="text-center  text-white text-lg border-t-2 pt-8 mt-12">
                     <h2 className="text-xl font-semibold mb-4">Nächstes Spiel</h2>
                     <p className="text-white bg-black/60 rounded-xl p-4" >Du spielst als nächstes {/* am Tisch <span className="font-bold">{naechstesSpiel.tisch}</span> */} gegen <span className="font-bold">{naechstesSpiel.gegen}</span>.{/*</p>
                     <p>Es sind noch <span className="font-bold">{naechstesSpiel.vorEinem}</span> Spieler vor dir dran. */}</p>
                 </div>
-            )}
+            ):
+            <div className="text-center  text-white text-lg border-t-2 pt-8 mt-12">
+                <h2 className="text-xl font-semibold mb-4">Nächstes Spiel</h2>
+                <p className="text-white bg-black/60 rounded-xl p-4" >Dein Nächstes Spiel steht noch nicht Fest. Bitte habe Geduld.</p>
+            </div>}
 
-            {/* Button für Ergebnis eintragen */}
+            {naechstesSpiel ? 
             <button 
                 className="bg-white/100 text-black p-3 rounded-full mt-6 hover:bg-white/80 transition"
                 onClick={() => setShowModal(true)}
             >
                 Ergebnis eintragen
             </button>
+            : <></>}
 
             {/* Modal für Ergebnis-Eingabe */}
             {showModal && (

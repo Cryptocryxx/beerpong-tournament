@@ -26,3 +26,8 @@ body {
   color: var(--foreground);
   font-family: var(--font-rooster), sans-serif;
 }
+
+html, body {
+  overflow: hidden;
+  height: 100%;
+}

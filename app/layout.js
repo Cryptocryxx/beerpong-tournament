@@ -11,6 +11,9 @@ const myFont = localFont({
 export default function RootLayout({ children }) {
   return (
     <html lang="de" className={myFont.variable}>
+      <head>
+        <title>Beerpong Tournament 2025</title>
+      </head>
       <body>{children}</body>
     </html>
   );
