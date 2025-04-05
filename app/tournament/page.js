@@ -285,7 +285,7 @@ const [final, setFinal] = useState(null);
         <Head>
             <title>Beerpong Tournament 2025</title>
         </Head>
-       <div className="relative min-h-[100dvh] overflow-hidden w-screen flex justify-center items-center">
+       <div className="relative min-h-[100dvh] w-screen flex justify-center items-center">
              {/* Background Image */}
              <Image 
                src="/bg.jpeg" 
@@ -296,7 +296,7 @@ const [final, setFinal] = useState(null);
                className="-z-10"
              />
              {/*Gruppen Phase*/}
-            <div className="flex flex-col items-center justify-top min-h-screen  text-white p-4">
+            <div className="flex flex-col items-center justify-top min-h-screen text-white p-4">
                 <h1 className="text-xl lg:text-2xl xl:text-3xl mt-5">Beerpong 2025 Gruppenphase</h1>
                 <div className="flex flex-col lg:flex-row lg:gap-15 justify-around items-center h-[50vh] w-[100vw]">
                     {groups.map((group, index) => (
