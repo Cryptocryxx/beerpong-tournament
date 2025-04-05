@@ -48,7 +48,7 @@ export default function Games() {
                 });
             })
             .catch(err => console.error("Fehler beim Laden des nächsten Spiels:", err));
-    }, []);
+    }, [showModal]);
 
     const handleSubmit = () => {
         const teamName = Cookies.get("teamName");
