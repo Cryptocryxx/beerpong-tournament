@@ -7,6 +7,9 @@ import Xarrow from "react-xarrows";
 import { useEffect, useState } from "react";
 export default function TournamentPage() {
     const [groups, setGroups] = useState([])
+    const [selectedTeam, setSelectedTeam] = useState(null);
+const [players, setPlayers] = useState([]);
+const [showPlayers, setShowPlayers] = useState(false);
 
     const router = useRouter();
 
@@ -17,6 +20,23 @@ export default function TournamentPage() {
     useEffect(() => {
         getGroupPhaseGroups()
     }, [])
+
+    useEffect(() => {
+        console.log(players)
+    }, [players])
+
+    async function fetchPlayers(teamName) {
+        try {
+            const response = await fetch(`https://depthofheritage.online/api/beerPong/players/${teamName}`);
+            const data = await response.json();
+            setPlayers(data);
+            setSelectedTeam(teamName);
+            setShowPlayers(true);
+        } catch (error) {
+            console.error("Fehler beim Laden der Spieler:", error);
+        }
+    }
+    
 
     async function getGroupPhaseGroups() {
         try {
@@ -98,7 +118,7 @@ export default function TournamentPage() {
                                 <div className={`bg-black/60 ${idx == 0 ? 'text-green-500' : idx == 1 ? 'text-green-300' : 'text-red-500'}  flex flex-col justify-center h-full w-2/12 text-xs lg:text-xl items-center`}>
                                     {idx + 1}
                                 </div>
-                                <div className={`lg:text-xl text-white ${idx == 0 ? 'bg-linear-to-r from-lime-800 via-green-600 to-emerald-400' : idx == 1 ? 'bg-linear-to-r from-lime-700 via-green-600 to-emerald-300' : 'bg-linear-to-r from-rose-800 via-pink-700 to-red-300'} flex flex-col justify-center h-full w-10/12 text-xss rounded-r-xl items-center`}>
+                                <div onClick={() => fetchPlayers(team.teamName)}  className={`lg:text-xl text-white ${idx == 0 ? 'bg-linear-to-r from-lime-800 via-green-600 to-emerald-400' : idx == 1 ? 'bg-linear-to-r from-lime-700 via-green-600 to-emerald-300' : 'bg-linear-to-r from-rose-800 via-pink-700 to-red-300'} flex flex-col justify-center h-full w-10/12 text-xss rounded-r-xl items-center`}>
                                     {team.teamName}
                                 </div>
                             </div>
@@ -234,6 +254,23 @@ export default function TournamentPage() {
                     strokeWidth={2}
                     color="black"
                 />
+                {showPlayers && (
+                    <div className="absolute top-20 left-1/2 transform -translate-x-1/2 bg-white/90 text-black rounded-lg shadow-lg p-4 z-50 max-w-sm w-[80%]">
+                        <div className="flex justify-between items-center mb-2">
+                            <h2 className="text-lg font-semibold">Spieler von {selectedTeam}</h2>
+                            <button onClick={() => setShowPlayers(false)} className="text-red-500 text-xl font-bold">&times;</button>
+                        </div>
+                        {players.length > 0 ? (
+                            <ul className="list-disc list-inside">
+                                {players.map((player, i) => (
+                                    <li key={i}>{player}</li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p>Keine Spieler gefunden.</p>
+                        )}
+                    </div>
+                )}
           </div>
         );
       };
