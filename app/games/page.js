@@ -125,7 +125,7 @@ export default function Games() {
 
             {/* Button für Ergebnis eintragen */}
             <button 
-                className="bg-white/60 text-black p-3 rounded-full mt-6 hover:bg-white/80 transition"
+                className="bg-white/100 text-black p-3 rounded-full mt-6 hover:bg-white/80 transition"
                 onClick={() => setShowModal(true)}
             >
                 Ergebnis eintragen
