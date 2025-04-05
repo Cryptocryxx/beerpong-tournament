@@ -156,7 +156,7 @@ export default function Home() {
       </div>  
     : <></>}
       { cookieSet ? 
-      <div className="position: absolute top-2 right-3 bg-black opacity-60 p-4 rounded-2xl">
+      <div className="position: absolute top-2 right-3 bg-black text-white opacity-60 p-4 rounded-2xl">
         <h2 className="text-2xl">Your Team: {Cookies.get("teamName")}</h2>
       </div>
       : <></>

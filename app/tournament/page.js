@@ -2,7 +2,6 @@
 import Image from "next/image"
 import { useRouter } from "next/navigation";
 import Head from "next/head";
-import TournamentPige from "../tournamentTree";
 import Xarrow from "react-xarrows";
 import { useEffect, useState } from "react";
 export default function TournamentPage() {
