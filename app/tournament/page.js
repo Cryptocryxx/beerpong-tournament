@@ -73,9 +73,8 @@ const [groupCount, setGoupCount] = useState(0);
         try {
             const response = await fetch("https://depthofheritage.online/api/beerPong/groupPhase/teams");
             const teams = await response.json();
-            let groupCountTmp = 0;
             teams.forEach(team => {
-                if (team.group > groupCountTmp) setGoupCount(team.group)
+                if (team.group > groupCount) setGoupCount(team.group)
             })
             let groups = [];
             if (groupCount > 0) {
