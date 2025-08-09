@@ -240,10 +240,10 @@ const [groupCount, setGoupCount] = useState(0);
                     <h1 className="h-1/12 flex items-center justify-center bg-black/60 rounded-xl text-white w-full gap-4">Finale</h1>
                     <div className="flex flex-col justify-around items-center h-11/12 w-full">
                         <div id="final1" className="flex p-2 text-xs lg:text-xl text-white justify-center items-center h-1/6 w-full bg-linear-to-r from-blue-500 via-teal-500 to-emerald-300 rounded-xl">
-                            {final?.team1 || "TBD"}
+                            {final?.team1 || "Cursed DuoQ"}
                         </div>
                         <div id="final2" className="flex p-2 text-xs lg:text-xl text-white justify-center items-center h-1/6 w-full bg-linear-to-r from-blue-500 via-teal-500 to-emerald-300 rounded-xl">
-                            {final?.team2 || "TBD"}
+                            {final?.team2 || "Sip Happens!"}
                         </div>
                     </div>
                 </div>
