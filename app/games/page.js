@@ -28,10 +28,11 @@ export default function Games() {
                 // Vergangene Spiele laden
                 const pastGamesRes = await fetch(`https://depthofheritage.online/api/beerPong/pastGames/${teamName}`);
                 const pastGamesData = await pastGamesRes.json();
+                console.log(pastGamesData)
                 const mappedGames = pastGamesData.map((game, index) => ({
                     datum: `Spiel ${index + 1}`,
                     spiel: `Spiel ${index + 1}`,
-                    ergebnis: game.win ? "Gewonnen" : "Verloren",
+                    ergebnis: game.win ? "Gewonnen" : game.draw != [] ? "Unentschieden" : "Verloren",
                     opponent: game.opponentTeam,
                     becher: game.remainingCups
                 }));
@@ -67,14 +68,15 @@ export default function Games() {
             console.warn("Teamname oder nächstes Spiel fehlt");
             return;
         }
-    
+        let remainingCups = 0
+        if (ergebnis != 'Unentschieden') remainingCups = becher
+        
         const payload = {
             team: teamName,
             opponentTeam: naechstesSpiel.gegen,
             win: ergebnis === 'Gewonnen',
             draw: ergebnis === 'Unentschieden',
-            remainingCups: ergebnis === 'Unentschieden'? 0 : becher,
-            groupPhase: true
+            remainingCups: remainingCups
         };
     
         try {
