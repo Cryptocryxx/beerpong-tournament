@@ -219,18 +219,18 @@ const [groupCount, setGoupCount] = useState(0);
                     <h1 className="h-1/12 flex items-center justify-center bg-black/60 rounded-xl text-white w-full gap-4">Halb Finale</h1>
                     <div className="flex flex-col justify-center items-center h-1/2 w-full gap-4">
                         <div id="semi1" className="flex p-2 text-xs lg:text-xl text-white justify-center items-center h-2/6 bg-linear-to-r from-blue-200 via-blue-400 to-blue-600 rounded-xl w-full">
-                            {semifinals[0]?.team1 || "TBD"}
+                            {semifinals[0]?.team1 || "Sip Happens!"}
                         </div>
                         <div id="semi2" className="flex p-2 text-xs lg:text-xl text-white justify-center items-center h-2/6 bg-linear-to-r from-blue-200 via-blue-400 to-blue-600 rounded-xl w-full">
-                            {semifinals[0]?.team2 || "TBD"}
+                            {semifinals[0]?.team2 || "Platzhalter"}
                         </div>
                     </div>
                     <div className="flex flex-col justify-center items-center h-1/2 w-full gap-4">
                         <div id="semi3" className="flex p-2 text-xs lg:text-xl text-white justify-center items-center h-2/6 bg-linear-to-r from-blue-200 via-blue-400 to-blue-600 rounded-xl w-full">
-                            {semifinals[1]?.team1 || "TBD"}
+                            {semifinals[1]?.team1 || "The true man/woman show"}
                         </div>
                         <div id="semi4" className="flex p-2 text-xs lg:text-xl text-white justify-center items-center h-2/6 bg-linear-to-r from-blue-200 via-blue-400 to-blue-600 rounded-xl w-full">
-                            {semifinals[1]?.team2 || "TBD"}
+                            {semifinals[1]?.team2 || "Cursed DuoQ"}
                         </div>
                     </div>
                 </div>
