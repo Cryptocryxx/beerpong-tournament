@@ -73,13 +73,15 @@ const [groupCount, setGoupCount] = useState(0);
         try {
             const response = await fetch("https://depthofheritage.online/api/beerPong/groupPhase/teams");
             const teams = await response.json();
+            let groupCountTmp = 0;
             teams.forEach(team => {
-                if (team.group > groupCount) setGoupCount(team.group)
+                if (team.group > groupCountTmp) groupCountTmp = team.group;
             })
+            setGoupCount(groupCountTmp)
             let groups = [];
-            if (groupCount > 0) {
+            if (groupCountTmp > 0) {
                 
-                for (let i = 1; i <= groupCount; i++){
+                for (let i = 1; i <= groupCountTmp; i++){
                     groups.push([])
                     teams.forEach(team => {
                         if (i == team.group) {
@@ -116,7 +118,6 @@ const [groupCount, setGoupCount] = useState(0);
                 }
             }
             setGroups(groups);
-            console.log(groups)
         }catch (e) {
             console.log("An error occured: ", e)
         }
