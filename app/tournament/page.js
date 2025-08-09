@@ -146,7 +146,7 @@ const [groupCount, setGoupCount] = useState(0);
                         <h1 className="mb-1.5 text:xs lg:text-xl text-white">Teams</h1>
                         {sortedGroup.map((team, idx) => (
                             <div key={team.teamName} className="w-full h-full flex justify-left items-center">
-                                <div className={`bg-black/60 ${idx == 0 ? 'text-green-500' : idx == 1 ? 'text-green-300' : 'text-red-500'}  flex flex-col justify-center h-full w-2/12 text-xs lg:text-xl items-center`}>
+                                <div className={`bg-black/60 ${idx == 0 ? 'text-green-500' : idx == 1 ? 'text-red-500' : 'text-red-500'}  flex flex-col justify-center h-full w-2/12 text-xs lg:text-xl items-center`}>
                                     {idx + 1}
                                 </div>
                                 <div onClick={() => fetchPlayers(team.teamName)}  className={`lg:text-xl text-white ${idx == 0 ? 'bg-linear-to-r from-lime-800 via-green-600 to-emerald-400' : idx == 1 ? 'bg-linear-to-r from-lime-700 via-green-600 to-emerald-300' : 'bg-linear-to-r from-rose-800 via-pink-700 to-red-300'} flex flex-col justify-center h-full w-10/12 text-xss rounded-r-xl items-center`}>

@@ -76,7 +76,8 @@ export default function Games() {
             opponentTeam: naechstesSpiel.gegen,
             win: ergebnis === 'Gewonnen',
             draw: ergebnis === 'Unentschieden',
-            remainingCups: remainingCups
+            remainingCups: remainingCups,
+            groupPhase: true
         };
     
         try {
