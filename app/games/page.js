@@ -72,7 +72,8 @@ export default function Games() {
             team: teamName,
             opponentTeam: naechstesSpiel.gegen,
             win: ergebnis === 'Gewonnen',
-            remainingCups: becher,
+            draw: ergebnis === 'Unentschieden',
+            remainingCups: ergebnis === 'Unentschieden'? 0 : becher,
             groupPhase: true
         };
     
@@ -158,6 +159,12 @@ export default function Games() {
                                 onClick={() => setErgebnis('Gewonnen')}
                             >
                                 Gewonnen
+                            </button>
+                            <button 
+                                className={`px-2 py-2 rounded ${ergebnis === 'Unentschieden' ? 'bg-teal-500 text-white' : 'bg-gray-200'}`} 
+                                onClick={() => setErgebnis('Unentschieden')}
+                            >
+                                Unentschieden
                             </button>
                             <button 
                                 className={`px-2 py-2 rounded ${ergebnis === 'Verloren' ? 'bg-red-500 text-white' : 'bg-gray-200'}`} 

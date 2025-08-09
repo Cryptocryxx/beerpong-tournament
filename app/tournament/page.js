@@ -12,6 +12,7 @@ const [showPlayers, setShowPlayers] = useState(false);
     const router = useRouter();
     const [semifinals, setSemifinals] = useState([]);
 const [final, setFinal] = useState(null);
+const [groupCount, setGoupCount] = useState(0);
 
     const handleReturn = () => {
         router.push("/")
@@ -72,11 +73,10 @@ const [final, setFinal] = useState(null);
         try {
             const response = await fetch("https://depthofheritage.online/api/beerPong/groupPhase/teams");
             const teams = await response.json();
-            let groupCount = 0;
+            let groupCountTmp = 0;
             teams.forEach(team => {
-                if (team.group > groupCount) groupCount = team.group
+                if (team.group > groupCountTmp) setGoupCount(team.group)
             })
-            console.log(groupCount)
             let groups = [];
             if (groupCount > 0) {
                 
@@ -165,6 +165,7 @@ const [final, setFinal] = useState(null);
                             </div>
                         ))}
                     </div>
+                    
     
                     {/* Siege */}
                     <div className="flex flex-col justify-start items-center text-[10px] h-full w-2/12 bg-black/60">
@@ -172,6 +173,16 @@ const [final, setFinal] = useState(null);
                         {sortedGroup.map((team) => (
                             <div key={team.teamName} className="h-full w-full flex text-xs lg:text-xl text-white justify-center items-center">
                                 {team.wins}
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Unentschieden */}
+                    <div className="flex flex-col justify-start items-center text-[10px] h-full w-2/12 bg-black/60">
+                        <h3 className="mb-1.5  text:xs lg:text-xl text-white">Unentschieden</h3>
+                        {sortedGroup.map((team) => (
+                            <div key={team.teamName} className="h-full w-full flex text-xs lg:text-xl text-white justify-center items-center">
+                                {team.draws}
                             </div>
                         ))}
                     </div>
@@ -284,20 +295,12 @@ const [final, setFinal] = useState(null);
         <Head>
             <title>Beerpong Tournament 2025</title>
         </Head>
-       <div className="relative min-h-[100dvh] w-screen flex justify-center items-center">
-             {/* Background Image */}
-             <Image 
-               src="/bg.jpeg" 
-               alt="Background" 
-               layout="fill"
-               quality={100}
-               style={{ objectFit: 'cover' }}
-               className="-z-10"
-             />
+       <div className="min-h-[100dvh] w-screen flex justify-center items-center bg-cover bg-center bg-no-repeat bg-fixed -z-10" style={{ backgroundImage: "url('/bg.jpeg')"}}>
+             
              {/*Gruppen Phase*/}
             <div className="flex flex-col items-center justify-top min-h-screen text-white p-4">
                 <h1 className="text-xl lg:text-2xl xl:text-3xl mt-5">Beerpong 2025 Gruppenphase</h1>
-                <div className="flex flex-col lg:flex-row lg:gap-15 justify-around items-center h-[50vh] w-[100vw]">
+                <div className="flex flex-col lg:flex-wrap lg:gap-15 justify-around items-center w-[100vw]">
                     {groups.map((group, index) => (
                         <GroupPhaseGroup key={index} group={group} index={index} />
                     ))}
